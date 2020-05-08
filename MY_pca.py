@@ -59,7 +59,7 @@ class My_pca:
             for n in range(n_components):
                 pos, val = self.max_pos(valores)
                 new_valores.append(val)
-                valores.remove(val)
+                valores[pos] = -1000
                 for i in range(size):
                     new_vetores[i].append(P[i][pos])
             print(new_valores)
@@ -138,16 +138,14 @@ class My_pca:
             scores = self.score_bayes(media1, media2, valores)
             new_vetores = []
             new_valores = []
-
             for k in range(size):
                 new_vetores.append([])
             for n in range(n_components):
                 pos, val = self.max_pos(scores)
                 new_valores.append(val)
-                scores.remove(val)
+                scores[pos] = -1000
                 for i in range(size):
                     new_vetores[i].append(P[i][pos])
-            print(new_valores)
             return new_vetores
 
 

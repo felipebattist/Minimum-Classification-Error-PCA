@@ -3,15 +3,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.decomposition import PCA
 from sklearn import svm
 from MY_pca import My_pca
-n = 11
-print('Climate Dataset - n_features: '+str(n))
-
-df = pd.read_csv('climate.csv')
+n = 3
+print('Debrecen Dataset - n_features: '+str(n))
+df = pd.read_csv('debrecen.csv')
 data = pd.DataFrame(df)
+target = data['class']
+data.drop('class', inplace=True, axis=1)
 
-target = data['outcome']
-
-data.drop('outcome', inplace=True, axis=1)
 
 X_train, X_test, Y_train, Y_test = train_test_split(data, target, train_size=0.25, random_state=0)
 print('Sklearn PCA')
