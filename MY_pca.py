@@ -70,6 +70,7 @@ class My_pca:
 
 
     def class_appearance(self, target):
+        #Retorna o núumero de aparições das classes c1 e c2
         c1 = 0
         c2 = 0
         x = target[0]
@@ -81,6 +82,7 @@ class My_pca:
         return c1, c2
 
     def feature_mean(self,n_features, data, target):
+        #Retorna a media de cada feature para as classes c1 e c2
         target = target.tolist()
         size = len(target)
         x = target[0]
@@ -103,6 +105,7 @@ class My_pca:
         return c1_medias, c2_medias
 
     def score_bayes(self, media1, media2, auto_valores):
+        #Retorna um vetor com os scores de cada auto valor.
         scores = []
         for i in range(len(media1)):
             if auto_valores[i] != 0:
