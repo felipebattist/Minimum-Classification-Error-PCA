@@ -131,7 +131,6 @@ class My_pca:
         P = (P.T).tolist()
         size = len(P)
         if n_components == 0 or n_components == len(valores):
-            print(valores)
             return (P)
         elif n_components > 0 and n_components < len(valores):
             media1, media2 = self.feature_mean(len(valores), P, target)

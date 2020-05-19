@@ -1,13 +1,25 @@
 import pandas as pd
 import func_auxiliares as fc
 
-n = 3
+n = 19
 print('Debrecen Dataset - n_features: '+str(n))
-df = pd.read_csv('debrecen.csv')
+df = pd.read_csv('datasets/debrecen.csv')
 data = pd.DataFrame(df)
 target = data['class']
 data.drop('class', inplace=True, axis=1)
 
-fc.svm_pca_test(data, target, n)
-fc.svm_pcaBayes_teste(data, target, n)
 
+x = []
+y = []
+for i in range(1,n+1):
+    a = fc.naive_pca(data, target, i)
+    b = fc.naive_proposed(data, target, i)
+    x.append(a)
+    y.append(b)
+
+print('Sklearn PCA')
+teste = list(map(str, x))
+print(' '.join(teste))
+print('Proposed PCA')
+teste = list(map(str, y))
+print(' '.join(teste))

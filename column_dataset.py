@@ -1,12 +1,12 @@
 import pandas as pd
 import func_auxiliares as fc
-n = 18
-print('Climate Dataset - n_features: '+str(n))
+n = 6
+print('VColumn Dataset - n_features: '+str(n))
 
-df = pd.read_csv('datasets/climate.csv')
+df = pd.read_csv('datasets/column.csv')
 data = pd.DataFrame(df)
-target = data['outcome']
-data.drop('outcome', inplace=True, axis=1)
+target = data['class']
+data.drop('class', inplace=True, axis=1)
 
 
 x = []
