@@ -115,7 +115,7 @@ class My_pca:
                 scores.append(0)
         return scores
 
-    def pca_bayes(self, data, target):
+    def MCPCA(self, data, target):
         n_components = self.n_components
 
         # Cria uma matriz com a media de cada coluna.

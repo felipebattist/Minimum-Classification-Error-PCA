@@ -21,7 +21,7 @@ def svm_pca_test(data, target, n):
 
 def svm_pca_proposed(data, target, n):
     my_pca = My_pca(n)
-    data3 = my_pca.pca_bayes(data, target)
+    data3 = my_pca.MCPCA(data, target)
     X_train2, X_test2, Y_train, Y_test = train_test_split(data3, target, train_size=0.35, random_state=0)
 
     model3 = svm.SVC(kernel='linear', C = 0.001)
@@ -43,7 +43,7 @@ def knn_pca(data, target, n):
 
 def knn_proposed(data, target, n):
     my_pca = My_pca(n)
-    data3 = my_pca.pca_bayes(data, target)
+    data3 = my_pca.MCPCA(data, target)
     X_train2, X_test2, Y_train, Y_test = train_test_split(data3, target, train_size=0.35, random_state=0)
     knn = KNeighborsClassifier(n_neighbors=1)
     knn.fit(X_train2, Y_train)
@@ -64,7 +64,7 @@ def decisionTree_pca(data, target, n):
 
 def decisionTree_proposed(data, target, n):
     my_pca = My_pca(n)
-    data3 = my_pca.pca_bayes(data, target)
+    data3 = my_pca.MCPCA(data, target)
     X_train2, X_test2, Y_train, Y_test = train_test_split(data3, target, train_size=0.35, random_state=0)
 
     clf = DecisionTreeClassifier(random_state=0)
@@ -83,7 +83,7 @@ def naive_pca(data, target, n):
 
 def naive_proposed(data, target, n):
     my_pca = My_pca(n)
-    data3 = my_pca.pca_bayes(data, target)
+    data3 = my_pca.MCPCA(data, target)
     X_train2, X_test2, Y_train, Y_test = train_test_split(data3, target, train_size=0.35, random_state=0)
 
     clf = GaussianNB()
