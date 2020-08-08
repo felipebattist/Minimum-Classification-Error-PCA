@@ -91,6 +91,37 @@ def naive_proposed(data, target, n):
     return clf.score(X_test2, Y_test)
 
 
+def select_classifier(n, data, target,classificador = 'nda'):
+    pca = []
+    proposed = []
+    if classificador == 'naive_bayes':
+        for i in range(1, n + 1):
+            a = naive_pca(data, target, i)
+            b = naive_proposed(data, target, i)
+            pca.append(a)
+            proposed.append(b)
+    elif classificador == 'KNN':
+        for i in range(1, n + 1):
+            a = knn_pca(data, target, i)
+            b = knn_proposed(data, target, i)
+            pca.append(a)
+            proposed.append(b)
+    elif classificador == 'SVM':
+        for i in range(1, n + 1):
+            a = svm_pca_test(data, target, i)
+            b = svm_pca_proposed(data, target, i)
+            pca.append(a)
+            proposed.append(b)
+    else:
+        for i in range(1, n + 1):
+            a = decisionTree_pca(data, target, i)
+            b = decisionTree_proposed(data, target, i)
+            pca.append(a)
+            proposed.append(b)
+
+    return pca, proposed
+
+
 
 
 
