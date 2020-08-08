@@ -145,7 +145,9 @@ class My_pca:
                 scores[pos] = -1000
                 for i in range(size):
                     new_vetores[i].append(P[i][pos])
-            return new_vetores
+
+            results = np.array(new_vetores)
+            return results
 
 
         else:
