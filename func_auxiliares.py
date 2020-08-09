@@ -7,88 +7,108 @@ from sklearn import metrics
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
 from MY_pca import My_pca
+from sklearn import discriminant_analysis
+
+def LDA_pca(data, target, n):
+    pca = PCA(n)
+    data1 = pca.fit_transform(data)
+    X_train, X_test, Y_train, Y_test = train_test_split(data1, target, train_size=0.35, random_state=0)
+
+    model = discriminant_analysis.LinearDiscriminantAnalysis()
+    model.fit(X_train, Y_train)
+    sc = model.score(X_test, Y_test)
+    return sc
+
+def LDA_proposed(data, target, n):
+    my_pca = My_pca(n)
+    results = my_pca.MCPCA_fit_transform(data, target)
+    X_train, X_test, Y_train, Y_test = train_test_split(results['new_data'], target, train_size=0.35, random_state=0)
+
+    model = discriminant_analysis.LinearDiscriminantAnalysis()
+    model.fit(X_train, Y_train)
+    sc = model.score(X_test, Y_test)
+    return sc
+
 
 def svm_pca_test(data, target, n):
-    X_train, X_test, Y_train, Y_test = train_test_split(data, target, train_size=0.35, random_state=0)
     pca = PCA(n)
-    X_train1 = pca.fit_transform(X_train)
-    X_test1 = pca.transform(X_test)
-    model = svm.SVC(kernel='linear', C = 0.001)
-    model.fit(X_train1, Y_train)
-    sc = model.score(X_test1, Y_test)
+    data1 = pca.fit_transform(data)
+    X_train, X_test, Y_train, Y_test = train_test_split(data1, target, train_size=0.35, random_state=0)
+    model = svm.SVC(kernel='linear', C = 0.8)
+    model.fit(X_train, Y_train)
+    sc = model.score(X_test, Y_test)
     return sc
 
 
 def svm_pca_proposed(data, target, n):
     my_pca = My_pca(n)
-    data3 = my_pca.MCPCA(data, target)
-    X_train2, X_test2, Y_train, Y_test = train_test_split(data3, target, train_size=0.35, random_state=0)
+    results = my_pca.MCPCA_fit_transform(data, target)
+    X_train, X_test, Y_train, Y_test = train_test_split(results['new_data'], target, train_size=0.35, random_state=0)
 
-    model3 = svm.SVC(kernel='linear', C = 0.001)
-    model3.fit(X_train2, Y_train)
-    sc = model3.score(X_test2, Y_test)
+    model3 = svm.SVC(kernel='linear', C = 0.8)
+    model3.fit(X_train, Y_train)
+    sc = model3.score(X_test, Y_test)
     return sc
 
 
 def knn_pca(data, target, n):
-    X_train, X_test, Y_train, Y_test = train_test_split(data, target, train_size=0.35, random_state=0)
     pca = PCA(n)
-    X_train1 = pca.fit_transform(X_train)
-    X_test1 = pca.transform(X_test)
+    data1 = pca.fit_transform(data)
+    X_train, X_test, Y_train, Y_test = train_test_split(data1, target, train_size=0.35, random_state=0)
+
     knn = KNeighborsClassifier(n_neighbors=1)
-    knn.fit(X_train1, Y_train)
+    knn.fit(X_train, Y_train)
     y_expect = Y_test
-    y_pred = knn.predict(X_test1)
+    y_pred = knn.predict(X_test)
     return (metrics.accuracy_score(y_expect, y_pred))
 
 def knn_proposed(data, target, n):
     my_pca = My_pca(n)
-    data3 = my_pca.MCPCA(data, target)
-    X_train2, X_test2, Y_train, Y_test = train_test_split(data3, target, train_size=0.35, random_state=0)
+    results = my_pca.MCPCA_fit_transform(data, target)
+    X_train, X_test, Y_train, Y_test = train_test_split(results['new_data'], target, train_size=0.35, random_state=0)
+
     knn = KNeighborsClassifier(n_neighbors=1)
-    knn.fit(X_train2, Y_train)
+    knn.fit(X_train, Y_train)
     y_expect = Y_test
-    y_pred = knn.predict(X_test2)
+    y_pred = knn.predict(X_test)
     return (metrics.accuracy_score(y_expect, y_pred))
 
 
 def decisionTree_pca(data, target, n):
-    X_train, X_test, Y_train, Y_test = train_test_split(data, target, train_size=0.35, random_state=0)
     pca = PCA(n)
-    X_train1 = pca.fit_transform(X_train)
-    X_test1 = pca.transform(X_test)
+    data1 = pca.fit_transform(data)
+    X_train, X_test, Y_train, Y_test = train_test_split(data1, target, train_size=0.35, random_state=0)
 
     clf = DecisionTreeClassifier(random_state=0)
-    clf.fit(X_train1, Y_train)
-    return (clf.score(X_test1, Y_test))
+    clf.fit(X_train, Y_train)
+    return (clf.score(X_test, Y_test))
 
 def decisionTree_proposed(data, target, n):
     my_pca = My_pca(n)
-    data3 = my_pca.MCPCA(data, target)
-    X_train2, X_test2, Y_train, Y_test = train_test_split(data3, target, train_size=0.35, random_state=0)
+    results = my_pca.MCPCA_fit_transform(data, target)
+    X_train, X_test, Y_train, Y_test = train_test_split(results['new_data'], target, train_size=0.35, random_state=0)
 
     clf = DecisionTreeClassifier(random_state=0)
-    clf.fit(X_train2, Y_train)
-    return (clf.score(X_test2, Y_test))
+    clf.fit(X_train, Y_train)
+    return (clf.score(X_test, Y_test))
 
 def naive_pca(data, target, n):
-    X_train, X_test, Y_train, Y_test = train_test_split(data, target, train_size=0.35, random_state=0)
     pca = PCA(n)
-    X_train1 = pca.fit_transform(X_train)
-    X_test1 = pca.transform(X_test)
+    data1 = pca.fit_transform(data)
+    X_train, X_test, Y_train, Y_test = train_test_split(data1, target, train_size=0.35, random_state=0)
 
     clf = GaussianNB()
-    clf.fit(X_train1,Y_train)
-    return clf.score(X_test1, Y_test)
+    clf.fit(X_train,Y_train)
+    return clf.score(X_test, Y_test)
 
 def naive_proposed(data, target, n):
     my_pca = My_pca(n)
-    data3 = my_pca.MCPCA(data, target)
-    X_train2, X_test2, Y_train, Y_test = train_test_split(data3, target, train_size=0.35, random_state=0)
+    results = my_pca.MCPCA_fit_transform(data, target)
+    X_train, X_test, Y_train, Y_test = train_test_split(results['new_data'], target, train_size=0.35, random_state=0)
 
     clf = GaussianNB()
-    clf.fit(X_train2, Y_train)
-    return clf.score(X_test2, Y_test)
+    clf.fit(X_train, Y_train)
+    return clf.score(X_test, Y_test)
 
 
 def select_classifier(n, data, target,classificador = 'nda'):
@@ -110,6 +130,13 @@ def select_classifier(n, data, target,classificador = 'nda'):
         for i in range(1, n + 1):
             a = svm_pca_test(data, target, i)
             b = svm_pca_proposed(data, target, i)
+            pca.append(a)
+            proposed.append(b)
+
+    elif classificador == 'LDA':
+        for i in range(1, n + 1):
+            a = LDA_pca(data, target, i)
+            b = LDA_proposed(data, target, i)
             pca.append(a)
             proposed.append(b)
     else:

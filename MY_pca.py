@@ -8,6 +8,7 @@ class My_pca:
     def __init__(self, n_components = 0):
         self.n_components = n_components
 
+
     def prodMatrix(self,matrizA, matrizB):
         """Multiplica duas matrizes."""
         sizeLA = len(matrizA)
@@ -115,7 +116,7 @@ class My_pca:
                 scores.append(0)
         return scores
 
-    def MCPCA(self, data, target):
+    def MCPCA_fit_transform(self, data, target):
         n_components = self.n_components
 
         # Cria uma matriz com a media de cada coluna.
@@ -131,7 +132,8 @@ class My_pca:
         P = (P.T).tolist()
         size = len(P)
         if n_components == 0 or n_components == len(valores):
-            return (P)
+            results = {'new_data': P, 'cache': n_components}
+            return results
         elif n_components > 0 and n_components < len(valores):
             media1, media2 = self.feature_mean(len(valores), P, target)
             scores = self.score_bayes(media1, media2, valores)
@@ -141,14 +143,42 @@ class My_pca:
                 new_vetores.append([])
             for n in range(n_components):
                 pos, val = self.max_pos(scores)
-                new_valores.append(val)
+                new_valores.append([pos, val])
                 scores[pos] = -1000
                 for i in range(size):
                     new_vetores[i].append(P[i][pos])
 
-            results = np.array(new_vetores)
+
+
+            results = {'new_data': new_vetores, 'cache': new_valores}
             return results
 
 
         else:
             print('ERRO: n_components must be >= 0')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
