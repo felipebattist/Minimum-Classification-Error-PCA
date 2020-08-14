@@ -4,11 +4,11 @@ import func_auxiliares as fc
 
 
 # classifcadores : KNN, naive_bayes, SVM, LDA, decisiontree
-classificador = 'SVM'
+classificador = 'DecisionTree'
 Datasets = {'column':'column.csv', 'banknote': 'Banknote_dataset.csv',  'climate': 'climate.csv', 'debrecen': 'debrecen.csv', 'spambase': 'spambase.csv'}
 
-name = 'column'
-dataset = Datasets[name]
+
+dataset = Datasets['debrecen']
 
 
 print('Classificador: ' + classificador)

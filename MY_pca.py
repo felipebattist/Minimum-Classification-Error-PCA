@@ -1,5 +1,5 @@
 import numpy as np
-from numpy import array
+
 #Define um dataset em formato de matriz
 
 
